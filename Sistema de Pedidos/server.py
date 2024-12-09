@@ -10,13 +10,14 @@ class ServidorPadaria:
         Inicializa o servidor, configurando o socket e variáveis internas.
         """
         self.socket_servidor = socket.socket(socket.AF_INET, socket.SOCK_STREAM)  # Criação do socket TCP/IP
-        self.socket_servidor.bind((host, porta))  # Bind do socket ao endereço e porta fornecidos
-        self.socket_servidor.listen(5)  # Modo de escuta, permitindo até 5 conexões simultâneas
+        self.socket_servidor.bind((host, porta))                                  # Bind do socket ao endereço e porta fornecidos
+        self.socket_servidor.listen(5)                                            # Modo de escuta, permitindo até 5 conexões simultâneas
         print(f"\nServidor online em {host}:{porta}")
         
-        self.pedidos = []  # Lista para armazenar os pedidos recebidos
-        self.clientes = {"kitchen": None, "ready_area": None}  # Dicionário de clientes registrados
-        self.bloqueio = threading.Lock()  # Lock para acesso seguro a recursos compartilhados
+        self.pedidos = []                                       # Lista para armazenar os pedidos recebidos
+        self.clientes = {"kitchen": None, "ready_area": None}   # Dicionário de clientes registrados
+        self.bloqueio = threading.Lock()                        # Lock para acesso seguro a recursos compartilhados
+
 
     def tratar_cliente(self, conn, endereco):
         """
@@ -25,17 +26,21 @@ class ServidorPadaria:
         print(f"\nConectado à {endereco}")
         try:
             while True:
-                dados = conn.recv(1024).decode('utf-8')  # Recebe dados do cliente
-                if not dados:
-                    break  # Se não houver dados, encerra a conexão
+                # Recebe dados do cliente
+                dados = conn.recv(1024).decode('utf-8')
+                
+                if not dados: 
+                    break  
                 
                 # Converte os dados recebidos de JSON para dicionário Python
                 mensagem = json.loads(dados)
                 self.processar_mensagem(mensagem, conn)
+
         except Exception as e:
             print(f"Erro: {e}")
         finally:
-            conn.close()  # Fecha a conexão com o cliente
+            conn.close()
+
 
     def processar_mensagem(self, mensagem, conn):
         """
@@ -44,7 +49,7 @@ class ServidorPadaria:
         tipo = mensagem['type']
 
         if tipo == 'register':
-            self.registrar_cliente(mensagem)
+            self.registrar_cliente(mensagem, conn)
         elif tipo == 'new_order':
             self.novo_pedido(mensagem)
         elif tipo == 'update_order':
@@ -54,12 +59,14 @@ class ServidorPadaria:
         elif tipo == 'get_orders':
             self.enviar_pedidos(conn)
 
-    def registrar_cliente(self, mensagem):
+
+    def registrar_cliente(self, mensagem, conn):
         """
         Registra um novo cliente (cozinha ou área de prontos).
         """
         self.clientes[mensagem['role']] = conn
         print(f"{mensagem['role']} registrado.")
+
 
     def novo_pedido(self, mensagem):
         """
@@ -74,6 +81,7 @@ class ServidorPadaria:
         if self.clientes["kitchen"]:
             self.clientes["kitchen"].send(json.dumps({'type': 'new_order', 'order': pedido}).encode('utf-8'))
 
+
     def atualizar_pedido(self, mensagem):
         """
         Atualiza o status de um pedido para "pronto" e notifica a área de prontos.
@@ -84,9 +92,10 @@ class ServidorPadaria:
                     pedido['status'] = 'pronto'
                     print(f"Pedido {mensagem['order_id']} marcado como pronto")
                     break
-        
+
         if self.clientes["ready_area"]:
             self.clientes["ready_area"].send(json.dumps({'type': 'order_ready', 'order_id': mensagem['order_id']}).encode('utf-8'))
+
 
     def cancelar_pedido(self, mensagem):
         """
@@ -99,11 +108,13 @@ class ServidorPadaria:
                     print(f"Pedido {mensagem['order_id']} marcado como cancelado")
                     break
 
+
     def enviar_pedidos(self, conn):
         """
         Envia a lista de pedidos para o cliente.
         """
         conn.send(json.dumps({'type': 'orders', 'orders': self.pedidos}).encode('utf-8'))
+
 
     def iniciar(self):
         """
@@ -111,8 +122,9 @@ class ServidorPadaria:
         """
         print("Aguardando por conexões...")
         while True:
-            conn, endereco = self.socket_servidor.accept()  # Aceita nova conexão
+            conn, endereco = self.socket_servidor.accept()                               # Aceita nova conexão
             threading.Thread(target=self.tratar_cliente, args=(conn, endereco)).start()  # Cria nova thread para tratar o cliente
+
 
 # Bloco principal que executa o servidor
 if __name__ == "__main__":
