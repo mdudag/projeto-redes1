@@ -79,7 +79,8 @@ class ServidorPadaria:
             print(f"\nNovo pedido recebido: {pedido}")
         
         if self.clientes["kitchen"]:
-            self.clientes["kitchen"].send(json.dumps({'type': 'new_order', 'order': pedido}).encode('utf-8'))
+            notice_new_order = {'type': 'new_order', 'order': pedido}
+            self.clientes["kitchen"].send(json.dumps(notice_new_order).encode('utf-8'))
 
 
     def atualizar_pedido(self, mensagem):
@@ -94,7 +95,8 @@ class ServidorPadaria:
                     break
 
         if self.clientes["ready_area"]:
-            self.clientes["ready_area"].send(json.dumps({'type': 'order_ready', 'order_id': mensagem['order_id']}).encode('utf-8'))
+            notice_ready_area = {'type': 'order_ready', 'order_id': mensagem['order_id']}
+            self.clientes["ready_area"].send(json.dumps(notice_ready_area).encode('utf-8'))
 
 
     def cancelar_pedido(self, mensagem):
