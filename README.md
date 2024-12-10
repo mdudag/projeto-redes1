@@ -1,6 +1,6 @@
 # Documentação do Protocolo
 
-Disciplina: Redes de Computadores I
+Disciplina: Redes de Computadores I.
 Discentes: Henrique Daniel Resende, Maria E. Guedes Alves e Thalles Cerqueira Santos
 
 ## Sobre o Protocolo
