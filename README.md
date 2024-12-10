@@ -94,7 +94,7 @@ Discentes: Henrique Daniel Resende, Maria E. Guedes Alves e Thalles Cerqueira Sa
 
   O tipo do protocolo criado é proprietário, pois é específico para este sistema de padaria.
 
-## Sobre o Projeto: 
+## Sobre o Projeto
 
 O projeto realizado tem como objetivo criar um sistema que simule o processo de realização e verificação de pedidos efetuados pelos clientes e finalizados pelo cozinheiro em uma padaria. O sistema é composto por três clientes, a interface do cardápio, o totem de pedidos da cozinha e o totem de pedidos prontos, e o servidor.
 
