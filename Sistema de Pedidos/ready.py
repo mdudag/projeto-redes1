@@ -15,9 +15,7 @@ def ready_area_client():
 
     # Criando objeto socket com tipo de endereço de rede IPv4 e protocolo TCP
     with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
-
-        # Método de conexão para o cliente se conectar ao servidor
-        s.connect((host, port)) # Recebe uma tupla contendo o endereço do servidor
+        s.connect((host, port)) 
         print("\n Conectado ao Servidor")
         print("\n ------------- Pedidos Finalizados ------------\n")
 
