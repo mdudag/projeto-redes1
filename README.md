@@ -8,17 +8,17 @@ Discentes: Henrique Daniel Resende, Maria E. Guedes Alves e Thalles Cerqueira Sa
 
 ### Tipos de mensagens trocadas
 
-**register_message**: registra o cliente como área de pedidos prontos ou cozinha.
+- **register_message**: registra o cliente como área de pedidos prontos ou cozinha.
 
-**new_order_message**: envia os itens dos pedidos ao servidor.
+- **new_order_message**: envia os itens dos pedidos ao servidor.
 
-**update_order_message**: atualiza um pedido como concluído e notifica a área de pedidos prontos.
+- **update_order_message**: atualiza um pedido como concluído e notifica a área de pedidos prontos.
 
-**canceled_order_message**: atualiza um pedido como cancelado.
+- **canceled_order_message**: atualiza um pedido como cancelado.
 
-**notice_new_order_message**: notifica a cozinha de novo pedido.
+- **notice_new_order_message**: notifica a cozinha de novo pedido.
 
-**notice_ready_area_message**: notifica a área de pedidos prontos sobre pedido concluído.		
+- **notice_ready_area_message**: notifica a área de pedidos prontos sobre pedido concluído.		
 
 ### Sintaxe das mensagens
 
