@@ -1,15 +1,16 @@
 # Documentação do Protocolo
 
-Disciplina: Redes de Computadores I.
+Disciplina: Redes de Computadores I
+
 Discentes: Henrique Daniel Resende, Maria E. Guedes Alves e Thalles Cerqueira Santos
 
 ## Sobre o Protocolo
 
 ### Tipos de mensagens trocadas
 
-register_message: registra o cliente como área de pedidos prontos ou cozinha.
-new_order_message: envia os itens dos pedidos ao servidor.
-update_order_message: atualiza um pedido como concluído e notifica a área de pedidos prontos.
+**register_message**: registra o cliente como área de pedidos prontos ou cozinha.
+**new_order_message**: envia os itens dos pedidos ao servidor.
+**update_order_message**: atualiza um pedido como concluído e notifica a área de pedidos prontos.
 canceled_order_message: atualiza um pedido como cancelado.
 notice_new_order_message: notifica a cozinha de novo pedido.
 notice_ready_area_message: notifica a área de pedidos prontos sobre pedido concluído.		
@@ -25,12 +26,12 @@ notice_ready_area_message: {'type': 'order_ready', 'order_id':mensagem['order_id
 
 ### Semântica das mensagens
 
-register_message: 'type': 'register' significa que um novo registro foi feito para a área de pedidos prontos (ready_area) ou cozinha (kitchen), 'role': ready_area' significa que a função é de área de pedidos prontos e  'role': 'kitchen' significa que é de área de pedidos da cozinha.
-new_order_message: 'type': 'new_order' significa que um novo pedido foi feito e 'item': item significa um item do pedido.
-update_order_message: 'type': 'update_order' significa que o tipo de mensagem é de atualização de pedido para concluído e 'order_id': order['id'] significa o identificador do pedido.
-canceled_order_message: 'type': 'canceled_order' significa que o tipo de mensagem é de pedido cancelado e 'order_id': order['id'] significa o identificador do pedido.
-notice_new_order_message: 'type': 'new_order' significa que um novo pedido foi feito e 'order': pedido são os dados do pedido.
-notice_ready_area_message: 'type': 'order_ready' significa que é uma mensagem de notificação de pedido para o totem de pedidos prontos e 'order_id': mensagem['order_id'] é o identificador do pedido.
+register_message: *'type': 'register'* significa que um novo registro foi feito para a área de pedidos prontos (ready_area) ou cozinha (kitchen), *'role': ready_area'* significa que a função é de área de pedidos prontos e  *'role': 'kitchen'* significa que é de área de pedidos da cozinha.
+new_order_message: *'type': 'new_order'* significa que um novo pedido foi feito e *'item': item* significa um item do pedido.
+update_order_message: *'type': 'update_order'* significa que o tipo de mensagem é de atualização de pedido para concluído e *'order_id': order['id']* significa o identificador do pedido.
+canceled_order_message: *'type': 'canceled_order'* significa que o tipo de mensagem é de pedido cancelado e *'order_id': order['id']* significa o identificador do pedido.
+notice_new_order_message: *'type': 'new_order'* significa que um novo pedido foi feito e *'order': pedido* são os dados do pedido.
+notice_ready_area_message: *'type': 'order_ready'* significa que é uma mensagem de notificação de pedido para o totem de pedidos prontos e *'order_id': mensagem['order_id']* é o identificador do pedido.
 	
 ### Regras de envio e resposta
 
