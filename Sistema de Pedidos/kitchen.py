@@ -42,17 +42,19 @@ def kitchen_client():
                         print(" Pedido concluído!")
 
                         # Mensagem de atualização do pedido concluído
-                        update_message = {'type': 'update_order', 'order_id': order['id']}
+                        update_order_message = {'type': 'update_order', 'order_id': order['id']}
+                        s.send(json.dumps(update_order_message).encode('utf-8'))
                         break
+                        
                     elif ready.lower() == 'n': 
                         print(" Pedido cancelado.")
 
                         # Mensagem de atualização do pedido cancelado
-                        update_message = {'type': 'canceled_order', 'order_id': order['id']}
+                        canceled_order_message = {'type': 'canceled_order', 'order_id': order['id']}
+                        s.send(json.dumps(canceled_order_message).encode('utf-8'))
                         break
 
-                # Envia uma mensagem de pedido atualizado ao servidor
-                s.send(json.dumps(update_message).encode('utf-8'))
+                
 
 if __name__ == "__main__":  # Se o arquivo for executado diretamente
     kitchen_client()        # Chama função para executar o totem da cozinha
