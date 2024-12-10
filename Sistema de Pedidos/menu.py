@@ -75,8 +75,8 @@ class TotemClientMenuGUI:
         try:
             # Envia cada item da lista para o servidor
             for item in self.selected_items:
-                message = {'type': 'new_order', 'item': item}
-                self.client_socket.send(json.dumps(message).encode('utf-8'))
+                new_order_message = {'type': 'new_order', 'item': item}
+                self.client_socket.send(json.dumps(new_order_message).encode('utf-8'))
             
             messagebox.showinfo("Sucesso", "Pedido enviado com sucesso!")
             self.selected_items.clear()
