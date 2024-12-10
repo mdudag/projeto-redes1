@@ -2,7 +2,6 @@ import socket
 import threading
 import json
 
-# Classe que implementa o servidor da padaria
 class ServidorPadaria:
     
     def __init__(self, host='127.0.0.1', porta=65432):
@@ -128,7 +127,6 @@ class ServidorPadaria:
             threading.Thread(target=self.tratar_cliente, args=(conn, endereco)).start()  # Cria nova thread para tratar o cliente
 
 
-# Bloco principal que executa o servidor
 if __name__ == "__main__":
     servidor = ServidorPadaria()
     servidor.iniciar()
