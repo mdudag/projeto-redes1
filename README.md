@@ -2,7 +2,7 @@
 
 ## Sobre o Protocolo
 
-Tipos de mensagens trocadas
+###Tipos de mensagens trocadas
 
   register_message: registra o cliente como área de pedidos prontos ou cozinha.
   new_order_message: envia os itens dos pedidos ao servidor.
