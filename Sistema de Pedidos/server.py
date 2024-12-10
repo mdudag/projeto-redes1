@@ -47,17 +47,10 @@ class ServidorPadaria:
         """
         tipo = mensagem['type']
 
-        if tipo == 'register':
-            self.registrar_cliente(mensagem, conn)
-        elif tipo == 'new_order':
-            self.novo_pedido(mensagem)
-        elif tipo == 'update_order':
-            self.atualizar_pedido(mensagem)
-        elif tipo == 'canceled_order':
-            self.cancelar_pedido(mensagem)
-        elif tipo == 'get_orders':
-            self.enviar_pedidos(conn)
-
+        if   tipo == 'register': self.registrar_cliente(mensagem, conn)
+        elif tipo == 'new_order': self.novo_pedido(mensagem)
+        elif tipo == 'update_order': self.atualizar_pedido(mensagem)
+        elif tipo == 'canceled_order': self.cancelar_pedido(mensagem)
 
     def registrar_cliente(self, mensagem, conn):
         """
@@ -78,8 +71,9 @@ class ServidorPadaria:
             print(f"\nNovo pedido recebido: {pedido}")
         
         if self.clientes["kitchen"]:
-            notice_new_order = {'type': 'new_order', 'order': pedido}
-            self.clientes["kitchen"].send(json.dumps(notice_new_order).encode('utf-8'))
+            # Mensagem de aviso de novo pedido
+            notice_new_order_message = {'type': 'new_order', 'order': pedido}
+            self.clientes["kitchen"].send(json.dumps(notice_new_order_message).encode('utf-8'))
 
 
     def atualizar_pedido(self, mensagem):
@@ -94,8 +88,9 @@ class ServidorPadaria:
                     break
 
         if self.clientes["ready_area"]:
-            notice_ready_area = {'type': 'order_ready', 'order_id': mensagem['order_id']}
-            self.clientes["ready_area"].send(json.dumps(notice_ready_area).encode('utf-8'))
+            # Mensagem de aviso de pedido pronto
+            notice_ready_area_message = {'type': 'order_ready', 'order_id': mensagem['order_id']}
+            self.clientes["ready_area"].send(json.dumps(notice_ready_area_message).encode('utf-8'))
 
 
     def cancelar_pedido(self, mensagem):
