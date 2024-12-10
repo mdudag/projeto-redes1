@@ -104,14 +104,6 @@ class ServidorPadaria:
                     print(f"Pedido {mensagem['order_id']} marcado como cancelado")
                     break
 
-
-    def enviar_pedidos(self, conn):
-        """
-        Envia a lista de pedidos para o cliente.
-        """
-        conn.send(json.dumps({'type': 'orders', 'orders': self.pedidos}).encode('utf-8'))
-
-
     def iniciar(self):
         """
         Inicia o servidor e espera por conexões.
