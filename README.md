@@ -22,31 +22,31 @@ Discentes: Henrique Daniel Resende, Maria E. Guedes Alves e Thalles Cerqueira Sa
 
 ### Sintaxe das mensagens
 
-**register_message**: {'type': 'register', 'role': 'ready_area'} e {'type': 'register', 'role': 'kitchen'}
+- **register_message**: {'type': 'register', 'role': 'ready_area'} e {'type': 'register', 'role': 'kitchen'}
 
-**new_order_message**: {'type': 'new_order', 'item': item}
+- **new_order_message**: {'type': 'new_order', 'item': item}
 
-**update_order_message**: {'type': 'update_order', 'order_id': order['id']}
+- **update_order_message**: {'type': 'update_order', 'order_id': order['id']}
 
-**canceled_order_message**: {'type': 'canceled_order', 'order_id': order['id']}
+- **canceled_order_message**: {'type': 'canceled_order', 'order_id': order['id']}
 
-**notice_new_order_message**: {'type': 'new_order', 'order': pedido}
+- **notice_new_order_message**: {'type': 'new_order', 'order': pedido}
 
-**notice_ready_area_message**: {'type': 'order_ready', 'order_id':mensagem['order_id']}
+- **notice_ready_area_message**: {'type': 'order_ready', 'order_id':mensagem['order_id']}
 
 ### Semântica das mensagens
 
-**register_message**: *'type': 'register'* significa que um novo registro foi feito para a área de pedidos prontos (ready_area) ou cozinha (kitchen), *'role': ready_area'* significa que a função é de área de pedidos prontos e  *'role': 'kitchen'* significa que é de área de pedidos da cozinha.
+- **register_message**: *'type': 'register'* significa que um novo registro foi feito para a área de pedidos prontos (ready_area) ou cozinha (kitchen), *'role': ready_area'* significa que a função é de área de pedidos prontos e  *'role': 'kitchen'* significa que é de área de pedidos da cozinha.
 
-**new_order_message**: *'type': 'new_order'* significa que um novo pedido foi feito e *'item': item* significa um item do pedido.
+- **new_order_message**: *'type': 'new_order'* significa que um novo pedido foi feito e *'item': item* significa um item do pedido.
 
-**update_order_message**: *'type': 'update_order'* significa que o tipo de mensagem é de atualização de pedido para concluído e *'order_id': order['id']* significa o identificador do pedido.
+- **update_order_message**: *'type': 'update_order'* significa que o tipo de mensagem é de atualização de pedido para concluído e *'order_id': order['id']* significa o identificador do pedido.
 
-**canceled_order_message**: *'type': 'canceled_order'* significa que o tipo de mensagem é de pedido cancelado e *'order_id': order['id']* significa o identificador do pedido.
+- **canceled_order_message**: *'type': 'canceled_order'* significa que o tipo de mensagem é de pedido cancelado e *'order_id': order['id']* significa o identificador do pedido.
 
-**notice_new_order_message**: *'type': 'new_order'* significa que um novo pedido foi feito e *'order': pedido* são os dados do pedido.
+- **notice_new_order_message**: *'type': 'new_order'* significa que um novo pedido foi feito e *'order': pedido* são os dados do pedido.
 
-**notice_ready_area_message**: *'type': 'order_ready'* significa que é uma mensagem de notificação de pedido para o totem de pedidos prontos e *'order_id': mensagem['order_id']* é o identificador do pedido.
+- **notice_ready_area_message**: *'type': 'order_ready'* significa que é uma mensagem de notificação de pedido para o totem de pedidos prontos e *'order_id': mensagem['order_id']* é o identificador do pedido.
 	
 ### Regras de envio e resposta
 
