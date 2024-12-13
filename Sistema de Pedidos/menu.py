@@ -185,7 +185,8 @@ class TotemClientMenuGUI:
             return
 
         try:
-            new_order_message = {'type': 'new_order', 'item': self.selected_items}
+            items = self.selected_items
+            new_order_message = {'type': 'new_order', 'item': items}
             self.client_socket.send(json.dumps(new_order_message).encode('utf-8'))
             time.sleep(0.1)  # Adiciona um pequeno atraso entre os envios
 
