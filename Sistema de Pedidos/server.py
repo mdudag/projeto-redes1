@@ -6,7 +6,7 @@ class ServidorPadaria:
     
     def __init__(self, host='127.0.0.1', porta=65432):
         """
-        Inicializa o servidor, configurando o socket e variáveis internas.
+            Inicializa o servidor, configurando o socket e variáveis internas.
         """
         self.socket_servidor = socket.socket(socket.AF_INET, socket.SOCK_STREAM)  # Criação do socket TCP/IP
         self.socket_servidor.bind((host, porta))                                  # Bind do socket ao endereço e porta fornecidos
@@ -18,9 +18,19 @@ class ServidorPadaria:
         self.bloqueio = threading.Lock()                        # Lock para acesso seguro a recursos compartilhados
 
 
+    def iniciar(self):
+        """
+            Inicia o servidor e espera por conexões.
+        """
+        print("Aguardando por conexões...")
+        while True:
+            conn, endereco = self.socket_servidor.accept()                               # Aceita nova conexão
+            threading.Thread(target=self.tratar_cliente, args=(conn, endereco)).start()  # Cria nova thread para tratar o cliente
+
+
     def tratar_cliente(self, conn, endereco):
         """
-        Trata a comunicação com cada cliente (cozinha ou área de prontos).
+            Trata a comunicação com cada cliente (cozinha ou área de prontos).
         """
         print(f"\nConectado à {endereco}")
         try:
@@ -43,7 +53,7 @@ class ServidorPadaria:
 
     def processar_mensagem(self, mensagem, conn):
         """
-        Processa a mensagem recebida do cliente e executa a ação apropriada.
+            Processa a mensagem recebida do cliente e executa a ação apropriada.
         """
         tipo = mensagem['type']
 
@@ -52,9 +62,10 @@ class ServidorPadaria:
         elif tipo == 'update_order': self.atualizar_pedido(mensagem)
         elif tipo == 'canceled_order': self.cancelar_pedido(mensagem)
 
+
     def registrar_cliente(self, mensagem, conn):
         """
-        Registra um novo cliente (cozinha ou área de prontos).
+            Registra um novo cliente (cozinha ou área de prontos).
         """
         self.clientes[mensagem['role']] = conn
         print(f"{mensagem['role']} registrado.")
@@ -62,7 +73,7 @@ class ServidorPadaria:
 
     def novo_pedido(self, mensagem):
         """
-        Processa um novo pedido e envia para a cozinha, se estiver registrada.
+            Processa um novo pedido e envia para a cozinha, se estiver registrada.
         """
         with self.bloqueio:
             id_pedido = len(self.pedidos) + 1
@@ -78,11 +89,11 @@ class ServidorPadaria:
 
     def atualizar_pedido(self, mensagem):
         """
-        Atualiza o status de um pedido para "pronto" e notifica a área de prontos.
+            Atualiza o status de um pedido para "pronto" e notifica a área de prontos.
         """
         with self.bloqueio:
             for pedido in self.pedidos:
-                if pedido['id'] == mensagem['order_id']:
+                if pedido['id'] == int(mensagem['order_id']):
                     pedido['status'] = 'pronto'
                     print(f"Pedido {mensagem['order_id']} marcado como pronto")
                     break
@@ -95,23 +106,14 @@ class ServidorPadaria:
 
     def cancelar_pedido(self, mensagem):
         """
-        Marca um pedido como "cancelado".
+            Marca um pedido como "cancelado".
         """
         with self.bloqueio:
             for pedido in self.pedidos:
-                if pedido['id'] == mensagem['order_id']:
+                if pedido['id'] == int(mensagem['order_id']):
                     pedido['status'] = 'cancelado'
                     print(f"Pedido {mensagem['order_id']} marcado como cancelado")
                     break
-
-    def iniciar(self):
-        """
-        Inicia o servidor e espera por conexões.
-        """
-        print("Aguardando por conexões...")
-        while True:
-            conn, endereco = self.socket_servidor.accept()                               # Aceita nova conexão
-            threading.Thread(target=self.tratar_cliente, args=(conn, endereco)).start()  # Cria nova thread para tratar o cliente
 
 
 if __name__ == "__main__":
