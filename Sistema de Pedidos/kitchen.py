@@ -108,7 +108,6 @@ class KitchenClientGUI:
 
             order_message = self.listbox.get(selected_order[0])
             order_id = order_message.split(" ")[2]              # Extrair o ID do pedido da mensagem
-            self.send_order_status(order_id, 'concluído')
 
             # Enviar mensagem para atualizar o pedido como concluído no servidor
             update_order_message = {'type': 'update_order', 'order_id': order_id}
@@ -133,7 +132,6 @@ class KitchenClientGUI:
 
             order_message = self.listbox.get(selected_order[0])
             order_id = order_message.split(" ")[2]              # Extrair o ID do pedido da mensagem
-            self.send_order_status(order_id, 'cancelado')
 
             # Enviar mensagem para atualizar o pedido como cancelado no servidor
             canceled_order_message = {'type': 'canceled_order', 'order_id': order_id}
@@ -144,19 +142,6 @@ class KitchenClientGUI:
 
         except Exception as e:
             messagebox.showerror("Erro", f"Erro ao cancelar o pedido: {e}")
-
-
-    def send_order_status(self, order_id, status):
-        """
-            Método para enviar o status do pedido concluído ou cancelado ao servidor.
-        """
-        try:
-            message = {'type': 'order_status', 'order_id': order_id, 'status': status}
-            self.client_socket.send(json.dumps(message).encode('utf-8'))
-            messagebox.showinfo("Sucesso", f"Pedido nº {order_id} marcado como {status}!")
-            
-        except Exception as e:
-            messagebox.showerror("Erro", f"Falha ao enviar o status: {e}")
 
 
 if __name__ == "__main__":
